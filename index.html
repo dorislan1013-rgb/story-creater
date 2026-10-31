@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>故事編輯器</title>
+  <style>:root{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;color:#263e3c;background:#f5f5f0;font-size:14px;font-synthesis:none}*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid #d9dfd9;border-radius:7px;padding:10px 15px;color:#35534d;background:#fff;transition:background .15s}button:hover{background:#edf2ec}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,a:focus-visible{outline:3px solid #b08243;outline-offset:3px}input,textarea,select{width:100%;min-width:0;margin-top:9px;border:1px solid #dce1db;border-radius:6px;padding:12px;color:#2d4240;background:#fafbf8;outline:none}input:focus,textarea:focus,select:focus{border-color:#658b7d;box-shadow:0 0 0 3px #658b7d15}textarea{resize:vertical;line-height:1.8}label{display:block;font-size:12px;font-weight:600;letter-spacing:.4px}label small{font-size:10px;color:#8c9992;font-weight:400;margin-left:5px}.topbar{min-height:88px;background:#fffefb;border-bottom:1px solid #e0e4dc;display:flex;align-items:center;gap:25px;padding:18px 4%}.brand{display:flex;align-items:center;gap:12px;color:#2b5146;text-decoration:none;font-family:serif;font-size:22px;letter-spacing:3px;white-space:nowrap}.brand small{display:block;font-family:sans-serif;font-size:8px;letter-spacing:2px;color:#8a968d;margin-top:5px}.brand-icon{background:#e7ede3;border-radius:50%;width:42px;height:42px;display:grid;place-items:center;font-size:29px}.local-badge{font-size:10px;color:#78897d;letter-spacing:1px}.topbar nav{display:flex;gap:9px;margin-left:auto}.primary{background:#2e574a;color:#fff;border-color:#2e574a}.primary:hover{background:#234638}main{max-width:1480px;margin:auto;padding:34px 4% 20px}.intro{display:flex;justify-content:space-between;align-items:end;margin:0 0 28px}.eyebrow{font-size:9px;letter-spacing:3px;color:#8b9a8c;margin:0 0 12px}h1{font-family:serif;font-size:29px;font-weight:500;letter-spacing:2px;margin:0 0 10px}.intro p:not(.eyebrow){font-size:12px;color:#869087;margin:0}.save-area{text-align:right;font-size:11px;color:#607c65}.save-area small{display:block;font-size:10px;color:#959d94;margin-top:8px}.project-bar{display:flex;align-items:center;gap:24px;border-top:1px solid #dee3da;border-bottom:1px solid #dee3da;padding:18px 0 23px;margin-bottom:25px}.project-bar label:first-child{width:34%}.project-bar label:nth-child(2){width:30%}#counts{margin-left:auto;color:#8b968d;font-size:11px;white-space:nowrap}.workspace{display:grid;grid-template-columns:230px minmax(300px,1fr) 280px;gap:20px;align-items:start}.panel{background:#fffefb;border:1px solid #e1e5dd;border-radius:10px;padding:21px;box-shadow:0 4px 18px #294d3903}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:25px;margin-bottom:15px}h2{font-size:13px;font-weight:600;margin:0;letter-spacing:1px}h2>span{font:10px sans-serif;color:#93a18e;margin-right:8px}.icon-button{padding:3px 9px;font-size:20px;border:0;background:#edf2e9}.hint{color:#929c92;font-size:10px;line-height:1.8;margin:8px 0 18px}.scene-card{display:block;width:100%;text-align:left;margin:0 0 9px;padding:13px 12px;background:#f8f9f5;border:1px solid transparent}.scene-card.active{border-color:#94aa94;background:#edf2e8}.scene-card strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.scene-card small{display:block;font-size:10px;color:#929c90;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.scene-card .scene-index{color:#92a28c;margin-right:9px;font-size:10px}.legend{border-top:1px solid #e8ebe4;padding-top:20px;margin-top:25px;display:flex;gap:14px;color:#99a08f;font-size:9px}#scene-list{max-height:620px;overflow:auto}.tag{font-size:9px;padding:5px 8px;background:#f1f3ec;color:#89977f;border-radius:4px}.edit-panel>label,.edit-panel>.form-grid{margin-top:23px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.edit-footer{border-top:1px solid #e9ece4;margin-top:26px;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:8px}.edit-footer span{color:#9da58f;font-size:9px}.danger{color:#a66f62;border:0;background:none;font-size:11px;padding:8px}.choice-edit{display:grid;grid-template-columns:20px 1fr 1fr;gap:10px;margin-top:15px;align-items:center}.choice-edit>span{color:#83967a;font-size:12px}.field-caption{font-size:11px;color:#829179;margin-top:25px}.note{font-size:12px;line-height:1.8;background:#f3eee4;border-radius:6px;padding:14px}.right-column{display:grid;gap:18px}.mini-stage{position:relative;aspect-ratio:9/16;background:linear-gradient(160deg,#b6b4a0,#617c73 43%,#214f50 70%,#162d37);background-size:cover;background-position:center;border-radius:7px;overflow:hidden;color:white}.mini-dialogue{position:absolute;bottom:0;left:0;right:0;background:#122b36c9;padding:20px 17px;max-height:70%;overflow:auto}.mini-dialogue strong{font-size:11px;letter-spacing:2px;color:#e4d4aa}.mini-dialogue p{font-size:12px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0 20px}.mini-dialogue>span{display:block;text-align:right;font-size:8px;letter-spacing:1px;color:#c3cec9}.look-panel .hint{margin-bottom:0}.text-button{font-size:10px;padding:4px 0;border:0;background:none;color:#5d7b5f}.asset-panel{padding:18px}.asset-row{display:flex;gap:9px;align-items:center;margin-top:10px}.asset-row img{width:40px;height:40px;object-fit:cover;border-radius:4px}.asset-row span{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}.asset-row button{border:0;padding:5px;color:#a0786d}.empty-assets{border:1px dashed #d8dfd0;padding:19px 10px;text-align:center;color:#96a08c;font-size:10px;line-height:1.8;border-radius:5px}.message{font-size:12px;line-height:1.7;color:#a05540;white-space:pre-wrap;overflow-wrap:anywhere}footer{display:flex;justify-content:space-between;gap:16px;margin-top:35px;padding-top:17px;border-top:1px solid #e0e4d9;color:#9aa28f;font-size:10px;letter-spacing:1px}dialog{padding:0;border:1px solid #667e70;border-radius:12px;background:#101616;width:min(430px,96vw);height:min(850px,96dvh);max-height:96dvh;overflow:hidden}dialog::backdrop{background:#102c27b3;backdrop-filter:blur(5px)}.preview-bar{height:45px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#fffefb;font-size:12px}.preview-bar button{padding:5px 10px;border:0;font-size:11px}iframe{display:block;width:100%;height:calc(100% - 45px);border:0}[hidden]{display:none!important}@media(min-width:1450px){.workspace{grid-template-columns:250px minmax(300px,1fr) 300px}}@media(max-width:1100px){.local-badge{display:none}.workspace{grid-template-columns:180px minmax(260px,1fr) 235px;gap:12px}.panel{padding:16px}.topbar{gap:12px}.topbar nav{gap:5px}.topbar button{padding:9px 11px}}@media(max-width:850px){.topbar{flex-wrap:wrap}.topbar nav{width:100%;margin:5px 0 0;flex-wrap:wrap}.workspace{grid-template-columns:180px 1fr}.right-column{grid-column:1/-1;grid-template-columns:240px 1fr}.intro{align-items:start;gap:20px}.save-area{max-width:170px}.project-bar{gap:12px}}@media(max-width:560px){main{padding-top:25px}.intro{display:block}.save-area{text-align:left;max-width:none;margin-top:18px}.intro h1{font-size:25px}.workspace{display:block}.panel{margin-bottom:15px}.right-column{display:block}.look-panel{max-width:310px;margin-left:auto;margin-right:auto}#scene-list{max-height:180px}.legend{display:none}.project-bar{flex-wrap:wrap}.project-bar label:first-child,.project-bar label:nth-child(2){width:calc(50% - 6px)}#counts{margin:0}.form-grid{gap:10px}.choice-edit{grid-template-columns:18px 1fr}.choice-edit label:last-child{grid-column:2}footer{display:block;line-height:2}footer span{display:block}}
+.cover-settings{margin-bottom:24px}.cover-fields{display:flex;gap:20px;align-items:end;flex-wrap:wrap}.cover-fields>label:first-child{min-width:200px;flex:1}.check-label{display:flex;align-items:center;gap:8px;font-weight:400;line-height:1.8}.check-label input{width:16px;height:16px;padding:0;margin:0;accent-color:#2e574a}.cover-fields>.check-label{align-self:center}.cover-settings .hint{margin-bottom:0}
+.project-library{display:flex;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:20px}.project-library>label{flex:1;min-width:190px}.library-actions{display:flex;flex-wrap:wrap;gap:8px}.project-library .hint{width:100%;margin:0}.audio-settings{margin-bottom:24px}.audio-settings>label{max-width:420px}.audio-settings .hint{margin-bottom:8px}.audio-row{display:flex;align-items:center;gap:14px;margin-top:12px;border-top:1px solid #edf0e8;padding-top:12px}.audio-row span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.audio-row button{padding:6px 10px;font-size:11px}.move-actions{display:flex;gap:8px;justify-content:flex-end}.move-actions button{font-size:11px;padding:6px 10px}.scene-card{cursor:grab}.scene-card:active{cursor:grabbing}.scene-card.dragging{opacity:.35}.scene-card.drop-before{border-top:3px solid #3e785c}.scene-card.drop-after{border-bottom:3px solid #3e785c}.scene-handle{float:right;color:#7e967d;font-size:14px}.project-library button:disabled{cursor:wait}@media(max-width:560px){.audio-row{gap:6px}.library-actions{gap:6px}.library-actions button{padding:8px 10px}}
+</style>
+  
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-icon">✦</span><span>故事編輯器<small>YOUR LITTLE STORY STUDIO</small></span></a>
+  <span class="local-badge">● 僅在本機編輯</span>
+  <nav aria-label="專案操作">
+    <button id="import">匯入專案</button><button id="backup">備份專案</button>
+    <button id="preview">▷ 預覽遊戲</button><button id="export" class="primary">匯出遊戲 ↗</button>
+  </nav>
+</header>
+<main>
+  <section class="intro"><div><p class="eyebrow">MAKE A MOMENT, TELL A STORY</p><h1>讓故事，在指尖發生。</h1><p>一張照片、一句對白，寫下屬於你的分岔與結局。</p></div><div class="save-area"><span id="save-status" role="status">準備就緒</span><small>本機暫存 · 請定期下載專案備份</small></div></section>
+  <section class="panel project-library" aria-label="我的專案"><label>我的專案<select id="project-select"></select></label><div class="library-actions"><button id="new-project">＋ 新增專案</button><button id="save-project">儲存專案</button><button id="duplicate-project">另存副本</button><button id="delete-project" class="danger">刪除專案</button></div><p class="hint">各專案分開自動儲存於此瀏覽器；仍請定期下載 JSON 備份。</p></section>
+  <section class="project-bar"><label>故事名稱<input id="title" maxlength="100" placeholder="為故事取個名字"></label><label>起始段落<select id="start"></select></label><span id="counts"></span></section>
+  <section class="panel cover-settings" aria-label="遊戲封面設定">
+    <div class="panel-heading"><h2>遊戲封面</h2><label class="check-label"><input id="cover-enabled" type="checkbox"> 開始前顯示封面</label></div>
+    <div class="cover-fields"><label>封面照片<select id="cover-bg"></select></label><button id="upload-cover">＋ 上傳封面圖片</button><label class="check-label"><input id="cover-title" type="checkbox"> 在封面顯示故事名稱</label></div>
+    <p class="hint">玩家先看到封面，點一下畫面或「開始遊戲」才進入劇情。圖片已有標題時，可取消顯示故事名稱。</p>
+  </section>
+  <section class="panel audio-settings" aria-label="音訊素材"><div class="panel-heading"><h2>背景音與音效</h2><button id="upload-audio">＋ 上傳音訊</button></div><label>全劇預設背景音<select id="default-music"></select></label><p class="hint">MP3、WAV、M4A、OGG · 每個檔案最多 10 MiB。背景音循環播放，每段也可切換背景音或加入一次性音效。</p><div id="audio-assets"></div></section>
+  <div class="workspace">
+    <aside class="panel scenes-panel"><div class="panel-heading"><h2><span>01</span> 劇情段落</h2><button id="add-scene" class="icon-button" aria-label="新增段落">＋</button></div><p class="hint">拖曳段落調整順序，或選取後按 ↑／↓。起始段落與指定跳轉保持不變。</p><div id="scene-list"></div><div class="legend"><span>● 對話</span><span>⑂ 分支</span><span>◇ 結局</span></div></aside>
+    <section class="panel edit-panel" aria-label="段落編輯"><div class="panel-heading"><h2><span>02</span> 編寫這一幕</h2><span id="scene-number" class="tag"></span></div><div class="move-actions"><button id="move-up" aria-label="段落往前移">↑ 往前移</button><button id="move-down" aria-label="段落往後移">↓ 往後移</button></div>
+      <div class="form-grid"><label>段落標籤 <small>僅供自己辨識</small><input id="scene-label" maxlength="100"></label><label>角色名稱<input id="speaker" maxlength="100" placeholder="留白表示旁白"></label></div>
+      <label>台詞<textarea id="text" rows="5" maxlength="10000" placeholder="這一刻，想說些什麼？"></textarea></label>
+      <div class="form-grid"><label>背景照片<select id="background"></select></label><label>段落類型<select id="kind"><option value="line">一般對話</option><option value="choice">兩個選項</option><option value="normal">一般結局</option><option value="bad">Bad End</option></select></label></div>
+      <div class="form-grid"><label>此段背景音<select id="scene-music"></select></label><label>進入此段的音效<select id="scene-sfx"></select></label></div>
+      <label id="next-field">接續段落<select id="next"></select></label>
+      <div id="choices" hidden><p class="field-caption">兩條路，兩種可能</p><div class="choice-edit"><span>A</span><label>選項文字<input id="choice-0" maxlength="200"></label><label>跳到段落<select id="target-0"></select></label></div><div class="choice-edit"><span>B</span><label>選項文字<input id="choice-1" maxlength="200"></label><label>跳到段落<select id="target-1"></select></label></div></div>
+      <p id="ending-hint" class="note" hidden></p>
+      <div class="edit-footer"><span>每次修改皆自動嘗試儲存</span><button id="delete-scene" class="danger">刪除此段落</button></div>
+    </section>
+    <aside class="right-column"><section class="panel look-panel"><div class="panel-heading"><h2><span>03</span> 畫面一瞥</h2><span class="tag">9 : 16</span></div><div id="mini-stage" class="mini-stage"><div class="mini-dialogue"><strong id="mini-speaker"></strong><p id="mini-text"></p><span>輕觸，讓故事繼續 ▾</span></div></div><p class="hint">版面示意 · 按「預覽遊戲」體驗完整流程</p></section>
+    <section class="panel asset-panel"><div class="panel-heading"><h2>背景素材</h2><button id="upload" class="text-button">＋ 新增背景</button></div><p class="hint">JPG、PNG、WebP · 每張最多 5 MiB</p><div id="assets"></div></section></aside>
+  </div>
+  <p id="message" role="status" class="message"></p>
+  <footer>✦ 小小的畫面，盛下無限的故事。<span>本機創作 → 匯出 HTML → GitHub Pages</span></footer>
+</main>
+<input id="image-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+<input id="cover-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+<input id="audio-file" type="file" accept="audio/mpeg,audio/wav,audio/mp4,audio/ogg,.mp3,.wav,.m4a,.ogg" hidden>
+<input id="project-file" type="file" accept="application/json,.json" hidden>
+<dialog id="preview-dialog"><div class="preview-bar"><span>玩家預覽</span><button id="close-preview" aria-label="關閉預覽">關閉 ✕</button></div><iframe id="preview-frame" title="遊戲預覽" sandbox="allow-scripts" allow="autoplay *"></iframe></dialog>
+<script type="text/plain" id="player-css-source">:root{color-scheme:dark;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}*{box-sizing:border-box}body{margin:0;background:#101616;color:#fff}button{font:inherit;cursor:pointer}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #f4d29d;outline-offset:-4px}.game{position:relative;width:100%;max-width:560px;height:100vh;height:100dvh;min-height:360px;margin:auto;overflow:hidden;background:linear-gradient(165deg,#9e9983 0%,#526b68 40%,#183d40 70%,#11282e 100%);background-size:cover;background-position:center;isolation:isolate}.game:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,22,26,.18),transparent 30%,rgba(6,17,23,.45));pointer-events:none;z-index:-1}.game-title{position:absolute;top:calc(24px + env(safe-area-inset-top));left:24px;right:24px;font-size:11px;letter-spacing:3px;text-shadow:0 1px 5px #000}.dialogue{position:absolute;bottom:0;left:0;right:0;padding:28px 26px calc(24px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(13,27,34,.70),rgba(13,27,34,.94));border-top:1px solid #ffffff30;max-height:78%;overflow:auto;backdrop-filter:blur(10px)}.speaker{color:#efd2a2;font-size:15px;letter-spacing:2px;margin:0 0 14px;min-height:20px}.words{white-space:pre-wrap;overflow-wrap:anywhere;font-size:17px;line-height:1.9;letter-spacing:.6px;margin:0 0 20px}.prompt{display:block;width:100%;border:0;background:none;color:#c1cdcf;text-align:right;font-size:11px;letter-spacing:2px;padding:12px 0}.actions{display:grid;gap:12px}.actions button{color:#fff;border:1px solid #d6c3a06b;border-radius:6px;background:#ffffff0d;padding:15px 16px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;text-align:left}.actions button:hover{background:#ffffff20}.ending-label{font-size:11px;letter-spacing:4px;color:#efd2a2;margin:0 0 14px}.bad .ending-label{color:#ecaaa5}@media(prefers-reduced-motion:no-preference){.dialogue{animation:arrive .3s ease-out}@keyframes arrive{from{opacity:.5;transform:translateY(8px)}to{opacity:1;transform:none}}}@media(min-width:600px){.game{box-shadow:0 0 100px #0008}}
+[hidden]{display:none!important}.cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:36px;padding:40px 28px calc(70px + env(safe-area-inset-bottom));overflow:auto;background:linear-gradient(180deg,transparent 15%,#06171b30 50%,#06171bbf)}.cover-heading{font-size:clamp(28px,8vw,42px);line-height:1.7;letter-spacing:4px;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;font-weight:500;margin:auto 0 0;text-shadow:0 2px 18px #0009}.cover button{border:1px solid #ead9b6aa;background:#112b32a6;border-radius:6px;padding:17px 45px;letter-spacing:4px;color:#f4e9d4;box-shadow:0 4px 25px #0003;flex-shrink:0}.cover button:hover{background:#21434bcc}
+.sound-toggle{position:absolute;z-index:3;right:16px;top:calc(16px + env(safe-area-inset-top));border:1px solid #ffffff55;border-radius:20px;background:#142f3dc9;color:#f5f1e5;font-size:11px;padding:9px 13px;letter-spacing:1px}.has-audio .game-title{right:115px}.sound-status{position:absolute;top:calc(50px + env(safe-area-inset-top));right:16px;left:16px;z-index:3;color:#fff3d1;background:#162f3ac9;border-radius:5px;font-size:11px;line-height:1.6;padding:8px}.sound-status:empty{display:none}
+</script><script>/* Standalone player runtime. Contains no editor or project storage logic. */
+(function (global) {
+  'use strict';
+  global.mountNovel = function (root, story) {
+    let current = 0;
+    let lastChoice = null;
+    let ended = false;
+    let onCover = false;
+    let currentMusic = story.music ?? null;
+    let choiceMusic = null;
+    let unlocked = false;
+    let muted = false;
+    let audioFailed = false;
+    root.className = 'game';
+    root.tabIndex = 0;
+    root.setAttribute('aria-label', '視覺小說遊戲');
+    const title = document.createElement('div'); title.className = 'game-title'; title.textContent = story.title;
+    const box = document.createElement('section'); box.className = 'dialogue'; box.setAttribute('aria-live', 'polite');
+    root.replaceChildren(title, box);
+    function button(text, action) {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = text;
+      b.addEventListener('click', e => { e.stopPropagation(); action(); });
+      return b;
+    }
+    const sounds = story.audio || [];
+    const music = document.createElement('audio'); music.loop = true; music.volume = .45; music.hidden = true; music.preload = 'none'; music.dataset.role = 'music';
+    const effect = document.createElement('audio'); effect.volume = .8; effect.hidden = true; effect.preload = 'none'; effect.dataset.role = 'effect';
+    const soundStatus = document.createElement('p'); soundStatus.className = 'sound-status'; soundStatus.setAttribute('role','status');
+    const soundToggle = button('開啟聲音', () => {
+      const retryEffect = audioFailed && effect.hasAttribute('src');
+      if (!unlocked || audioFailed) { unlocked = true; muted = false; audioFailed = false; soundStatus.textContent = ''; }
+      else muted = !muted;
+      if (muted) { music.pause(); effect.pause(); } else syncMusic();
+      if (retryEffect && !muted && !onCover) { effect.currentTime = 0; play(effect); }
+      soundLabel();
+    });
+    soundToggle.className = 'sound-toggle';
+    if (sounds.length) { root.classList.add('has-audio'); root.append(music,effect,soundToggle,soundStatus); }
+    function soundLabel() { soundToggle.textContent = audioFailed ? '重試聲音' : !unlocked ? '開啟聲音' : muted ? '聲音：關' : '聲音：開'; soundToggle.setAttribute('aria-pressed',String(unlocked && !muted)); }
+    function play(audio) {
+      audio.play().catch(error => {
+        if (error.name === 'AbortError' || muted || onCover) return;
+        audioFailed = true; soundLabel(); soundStatus.textContent = '音訊無法播放，可點「重試聲音」或繼續無聲遊玩。';
+      });
+    }
+    function syncMusic() {
+      if (!sounds.length || onCover || !unlocked || muted || currentMusic == null) { music.pause(); return; }
+      const src = sounds[currentMusic]; if (!src) return;
+      if (music.getAttribute('src') !== src) music.src = src;
+      if (music.paused) play(music);
+    }
+    function sceneAudio(s) {
+      if (s.bgm === -1) currentMusic = null;
+      else if (s.bgm != null) currentMusic = s.bgm;
+      syncMusic(); effect.pause();
+      if (s.sfx != null && sounds[s.sfx] && unlocked && !muted) { effect.src = sounds[s.sfx]; effect.currentTime = 0; play(effect); }
+    }
+    function unlock() { if (!unlocked) { unlocked = true; soundLabel(); syncMusic(); } }
+    root.addEventListener('click', e => { if (!e.target.closest('.sound-toggle')) unlock(); },{capture:true});
+    const cover = document.createElement('section'); cover.className = 'cover'; cover.hidden = true;
+    root.append(cover);
+    function showCover() {
+      onCover = true; title.hidden = true; box.hidden = true; cover.hidden = false;
+      music.pause(); effect.pause(); soundStatus.textContent = '';
+      root.style.backgroundImage = story.cover.bg == null ? '' : 'url("' + story.images[story.cover.bg] + '")';
+      cover.replaceChildren();
+      if (story.cover.showTitle) { const h = document.createElement('h1'); h.className = 'cover-heading'; h.textContent = story.title; cover.append(h); }
+      cover.append(button('開始遊戲', begin));
+    }
+    function begin() { onCover = false; cover.hidden = true; title.hidden = false; box.hidden = false; render(); root.focus({preventScroll:true}); }
+    function restart() { current = 0; lastChoice = null; choiceMusic = null; currentMusic = story.music ?? null; music.pause(); music.removeAttribute('src'); ended = false; if (story.cover) showCover(); else render(); }
+    function render() {
+      const s = story.scenes[current];
+      sceneAudio(s);
+      root.style.backgroundImage = s.bg == null ? '' : 'url("' + story.images[s.bg] + '")';
+      box.className = 'dialogue' + (s.end === 'bad' ? ' bad' : '');
+      box.replaceChildren(); box.scrollTop = 0;
+      const speaker = document.createElement('h1'); speaker.className = 'speaker'; speaker.textContent = s.speaker || '旁白';
+      const words = document.createElement('p'); words.className = 'words'; words.textContent = s.text;
+      box.append(speaker, words);
+      const actions = document.createElement('div'); actions.className = 'actions';
+      ended = Boolean(s.end) || (!s.choices && s.next == null);
+      if (ended) {
+        const label = document.createElement('p'); label.className = 'ending-label';
+        label.textContent = s.end === 'bad' ? 'BAD END · 故事仍有另一種可能' : 'THE END · 謝謝你走到這裡';
+        box.append(label);
+        if (s.end === 'bad' && lastChoice !== null) actions.append(button('↶ 返回剛才的選項', () => { current = lastChoice; currentMusic = choiceMusic; render(); }));
+        actions.append(button('重新開始', restart)); box.append(actions);
+      } else if (s.choices) {
+        s.choices.forEach(c => actions.append(button(c.text, () => { lastChoice = current; choiceMusic = currentMusic; current = c.to; render(); })));
+        box.append(actions);
+      } else box.append(button('輕觸繼續 ▾', advance));
+      const prompt = box.querySelector('button:not(.actions button)');
+      if (prompt) prompt.className = 'prompt';
+    }
+    function advance() {
+      if (onCover) { begin(); return; }
+      const s = story.scenes[current];
+      if (ended || s.choices) return;
+      current = s.next; render();
+    }
+    root.addEventListener('click', e => { if (!e.target.closest('button')) advance(); });
+    root.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('button')) { e.preventDefault(); unlock(); advance(); }
+    });
+    if (story.cover) showCover(); else render();
+  };
+})(window);
+</script><script>'use strict';
+const $ = id => document.getElementById(id);
+const STORAGE = 'glimmer-novel-project-v1';
+const types = { line: '對話', choice: '分支', normal: '一般結局', bad: 'Bad End' };
+const uid = () => crypto.randomUUID ? crypto.randomUUID() : Array.from(crypto.getRandomValues(new Uint8Array(16)), n => n.toString(16).padStart(2, '0')).join('');
+function sample() {
+  return { version: 2, title: '在微光裡，遇見你', start: 'arrival', music:'', audio:[], cover: {enabled:true, bg:'', showTitle:true}, images: [], scenes: [
+    { id: 'arrival', label: '序章 · 雨後的車站', speaker: '旁白', text: '雨停了，月台上只剩下你和一封沒有署名的信。\n遠處，有人輕輕叫了你的名字。', bg: '', kind: 'line', next: 'crossroads', choices: [] },
+    { id: 'crossroads', label: '分岔 · 那個熟悉的聲音', speaker: '你', text: '那個聲音，像是很久以前的約定。\n我要回頭看看嗎？', bg: '', kind: 'choice', next: '', choices: [{ text: '回頭，走向那個聲音', target: 'reunion' }, { text: '收起信，獨自離開', target: 'missed' }] },
+    { id: 'reunion', label: '結局 · 終於重逢', speaker: '旅人', text: '「這一次，你沒有錯過。」\n他笑著把另一封信交到你手上。故事，才正要開始。', bg: '', kind: 'normal', next: '', choices: [] },
+    { id: 'missed', label: 'Bad End · 擦肩而過', speaker: '旁白', text: '末班車緩緩離站。\n有些話，終究留在了那個雨後的月台。', bg: '', kind: 'bad', next: '', choices: [] }
+  ] };
+}
+// Validate and copy only known fields. Never execute or inject imported markup.
+function readProject(p) {
+  function need(ok, message) { if (!ok) throw Error(message); }
+  function str(v, max) { need(typeof v === 'string' && v.length <= max, '專案文字格式錯誤或過長。'); return v; }
+  need(p && [1,2].includes(p.version) && Array.isArray(p.scenes) && p.scenes.length > 0 && p.scenes.length <= 2000 && Array.isArray(p.images) && p.images.length <= 200, '不支援的專案格式（支援 version 1、2）。');
+  const images = p.images.map(i => {
+    need(i && typeof i.data === 'string' && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(i.data) && i.data.length <= 7 * 1024 * 1024, '背景圖片格式錯誤或超過大小限制。');
+    return { id: str(i.id, 100), name: str(i.name, 255), data: i.data };
+  });
+  need(p.audio === undefined || (Array.isArray(p.audio) && p.audio.length <= 100), '音訊素材格式錯誤。');
+  const audio = (p.audio || []).map(a => {
+    need(a && typeof a.data === 'string' && /^data:audio\/(mpeg|wav|mp4|ogg);base64,[A-Za-z0-9+/]+={0,2}$/.test(a.data) && a.data.length <= 14 * 1024 * 1024, '音訊格式錯誤或超過大小限制。');
+    return {id:str(a.id,100),name:str(a.name,255),data:a.data};
+  });
+  const audioIds = new Set(audio.map(a => a.id));
+  need(audioIds.size === audio.length && !audioIds.has('') && !audioIds.has('@stop'), '音訊 ID 重複或不合法。');
+  const music = str(p.music ?? '',100); need(!music || audioIds.has(music), '預設背景音不存在。');
+  const scenes = p.scenes.map(s => {
+    need(s && Object.hasOwn(types, s.kind) && Array.isArray(s.choices), '段落類型或選項格式錯誤。');
+    const choices = s.kind === 'choice' ? s.choices.map(c => ({ text: str(c.text, 200), target: str(c.target, 100) })) : [];
+    need(s.kind !== 'choice' || choices.length === 2, '每個分支必須正好有兩個選項。');
+    const bgm = str(s.bgm ?? '',100); const sfx = str(s.sfx ?? '',100);
+    need(!bgm || bgm === '@stop' || audioIds.has(bgm), '段落背景音不存在。');
+    need(!sfx || audioIds.has(sfx), '段落音效不存在。');
+    return { id: str(s.id, 100), label: str(s.label, 100), speaker: str(s.speaker, 100), text: str(s.text, 10000), bg: str(s.bg, 100), kind: s.kind, next: str(s.next, 100), bgm, sfx, choices };
+  });
+  const ids = new Set(scenes.map(s => s.id)); const imageIds = new Set(images.map(i => i.id));
+  need(ids.size === scenes.length && !ids.has('') && imageIds.size === images.length && !imageIds.has(''), '專案有重複或空白 ID。');
+  need(ids.has(p.start), '起始段落不存在。');
+  scenes.forEach(s => {
+    need(!s.bg || imageIds.has(s.bg), '段落的背景不存在。');
+    need(!s.next || ids.has(s.next), '接續段落不存在。');
+    s.choices.forEach(c => need(!c.target || ids.has(c.target), '選項目的段落不存在。'));
+  });
+  const cover = p.cover === undefined ? {enabled:true, bg:'', showTitle:true} : p.cover;
+  need(cover && typeof cover.enabled === 'boolean' && typeof cover.showTitle === 'boolean', '封面設定格式錯誤。');
+  const coverBG = str(cover.bg, 100);
+  need(!coverBG || imageIds.has(coverBG), '封面圖片不存在。');
+  return { version: 2, title: str(p.title, 100), start: p.start, cover: {enabled:cover.enabled,bg:coverBG,showTitle:cover.showTitle}, images, music, audio, scenes };
+}
+let project = readProject(sample());
+let projectId = uid();
+const library = new Map();
+let database = null;
+let storageMode = 'memory';
+let saveTimer;
+let saveQueue = Promise.resolve();
+let editVersion = 0;
+let previewAudio = null;
+const LIBRARY = 'novel-project-library-v2';
+const ACTIVE = 'novel-active-project-v2';
+function transaction(mode, action) {
+  return new Promise((resolve,reject) => {
+    const tx = database.transaction('projects',mode); const request = action(tx.objectStore('projects'));
+    tx.oncomplete = () => resolve(request?.result);
+    tx.onabort = tx.onerror = () => reject(tx.error || Error('無法儲存專案'));
+  });
+}
+function openDatabase() {
+  return new Promise((resolve,reject) => {
+    const request = indexedDB.open('novel-studio-v2',1);
+    request.onupgradeneeded = () => request.result.createObjectStore('projects',{keyPath:'id'});
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = request.onblocked = () => reject(request.error || Error('瀏覽器儲存空間無法開啟'));
+  });
+}
+function renderLibrary() {
+  $('project-select').replaceChildren();
+  for (const [id,p] of library) $('project-select').append(option(id,p.title || '未命名故事'));
+  $('project-select').value = projectId; $('delete-project').disabled = library.size <= 1;
+}
+async function persist() {
+  clearTimeout(saveTimer); saveTimer = null;
+  const id = projectId; const version = editVersion; const snapshot = structuredClone(project);
+  const work = saveQueue.then(async () => {
+    if (storageMode === 'indexedDB') await transaction('readwrite',store => store.put({id,project:snapshot}));
+    else if (storageMode === 'localStorage') localStorage.setItem(LIBRARY,JSON.stringify([...library].map(([key,p]) => ({id:key,project:p}))));
+    else throw Error('瀏覽器未提供可用的儲存空間');
+  });
+  saveQueue = work.catch(() => {});
+  try {
+    await work;
+    if (projectId === id && version === editVersion) $('save-status').textContent = '● 已儲存於此瀏覽器';
+    return projectId === id && version === editVersion;
+  } catch {
+    if (projectId === id) $('save-status').textContent = '⚠ 暫存失敗，請立即備份專案';
+    return false;
+  }
+}
+async function initialize() {
+  document.querySelector('main').inert = true; document.querySelector('nav').inert = true;
+  try {
+    database = await openDatabase(); storageMode = 'indexedDB';
+    database.onversionchange = () => { database.close(); storageMode = 'memory'; $('save-status').textContent = '⚠ 儲存空間已關閉，請備份並重新開啟'; };
+    const records = await transaction('readonly',store => store.getAll());
+    for (const record of records) {
+      try { library.set(record.id,readProject(record.project)); }
+      catch { $('message').textContent = '部分專案資料損壞，未覆寫原資料；請使用 JSON 備份還原。'; }
+    }
+    if (!records.length) {
+      // If a browser previously fell back to localStorage, migrate every project.
+      try {
+        const fallback = JSON.parse(localStorage.getItem(LIBRARY) || '[]');
+        for (const record of fallback) library.set(record.id,readProject(record.project));
+        if (fallback.length) await transaction('readwrite',store => {
+          for (const [id,p] of library) store.put({id,project:p});
+        });
+      } catch { $('message').textContent = '無法完整搬移舊專案，原始暫存仍保留；請備份需要的專案。'; }
+    }
+  } catch {
+    database = null;
+    try { const records = JSON.parse(localStorage.getItem(LIBRARY) || '[]');
+      for (const record of records) library.set(record.id,readProject(record.project));
+      storageMode = 'localStorage';
+    } catch { storageMode = 'memory'; }
+  }
+  if (!library.size) {
+    try { const legacy = localStorage.getItem(STORAGE); if (legacy) project = readProject(JSON.parse(legacy)); }
+    catch { $('message').textContent = '無法載入舊版暫存，未覆寫原資料；請匯入 JSON 備份。'; }
+    library.set(projectId,project);
+  }
+  let previous; try { previous = localStorage.getItem(ACTIVE); } catch {}
+  projectId = library.has(previous) ? previous : library.keys().next().value;
+  project = library.get(projectId); selected = project.start; render();
+  document.querySelector('main').inert = false; document.querySelector('nav').inert = false;
+  document.documentElement.dataset.ready = 'true';
+  if (storageMode === 'memory') $('save-status').textContent = '⚠ 無法永久儲存，請下載專案備份';
+}
+let selected = project.start;
+let playerCSS = $('player-css-source')?.textContent || null;
+const cssReady = playerCSS ? Promise.resolve() : fetch('player.css').then(r => { if (!r.ok) throw Error('無法讀取玩家樣式'); return r.text(); }).then(css => { playerCSS = css; }).catch(() => { $('message').textContent = '無法讀取玩家樣式。請依 README 使用本機 HTTP 伺服器開啟，再重試。'; });
+function save() {
+  editVersion++;
+  library.set(projectId,project); renderLibrary(); clearTimeout(saveTimer);
+  $('save-status').textContent = '儲存中…'; saveTimer = setTimeout(persist,250);
+}
+function active() { return project.scenes.find(s => s.id === selected); }
+function option(value, label) { const o = document.createElement('option'); o.value = value; o.textContent = label; return o; }
+function sceneOptions(el, emptyText) {
+  el.replaceChildren(); if (emptyText) el.append(option('', emptyText));
+  project.scenes.forEach((s, i) => el.append(option(s.id, `${String(i + 1).padStart(2, '0')} · ${s.label || '未命名段落'}`)));
+}
+function renderList() {
+  $('scene-list').replaceChildren();
+  project.scenes.forEach((s, i) => {
+    const b = document.createElement('button'); b.className = 'scene-card' + (s.id === selected ? ' active' : ''); b.setAttribute('aria-pressed', String(s.id === selected)); b.dataset.id = s.id; b.draggable = true;
+    const name = document.createElement('strong'); const n = document.createElement('span'); n.className = 'scene-index'; n.textContent = String(i + 1).padStart(2, '0');
+    name.append(n, document.createTextNode(s.label || '未命名段落'));
+    const sub = document.createElement('small'); sub.textContent = types[s.kind] + ' · ' + (s.text || '等待寫下第一句話');
+    const handle = document.createElement('span'); handle.className = 'scene-handle'; handle.textContent = '↕'; handle.setAttribute('aria-hidden','true');
+    b.append(handle,name, sub); b.onclick = () => { selected = s.id; render(); };
+    b.ondragstart = e => { e.dataTransfer.setData('text/plain',s.id); e.dataTransfer.effectAllowed = 'move'; b.classList.add('dragging'); };
+    b.ondragover = e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; const after = e.clientY > b.getBoundingClientRect().top + b.offsetHeight / 2; b.classList.toggle('drop-before',!after); b.classList.toggle('drop-after',after); };
+    b.ondragleave = () => b.classList.remove('drop-before','drop-after');
+    b.ondragend = () => document.querySelectorAll('.scene-card').forEach(card => card.classList.remove('dragging','drop-before','drop-after'));
+    b.ondrop = e => {
+      e.preventDefault(); const id = e.dataTransfer.getData('text/plain');
+      b.classList.remove('drop-before','drop-after');
+      const from = project.scenes.findIndex(x => x.id === id); if (from < 0 || id === s.id) return;
+      const after = e.clientY > b.getBoundingClientRect().top + b.offsetHeight / 2;
+      const [scene] = project.scenes.splice(from,1);
+      project.scenes.splice(project.scenes.findIndex(x => x.id === s.id) + (after ? 1 : 0),0,scene);
+      selected = id; save(); render(); $('message').textContent = '已調整段落順序。「依列表順序」將使用新順序；起始段落與指定跳轉未改動。';
+    };
+    b.onkeydown = e => { if (e.altKey && ['ArrowUp','ArrowDown'].includes(e.key)) { e.preventDefault(); moveScene(s.id,e.key === 'ArrowUp' ? -1 : 1); } };
+    $('scene-list').append(b);
+  });
+  $('counts').textContent = `${project.scenes.length} 個段落 / ${project.images.length} 張背景`;
+}
+function moveScene(id,direction) {
+  const from = project.scenes.findIndex(s => s.id === id); const to = from + direction;
+  if (from < 0 || to < 0 || to >= project.scenes.length) return;
+  const [scene] = project.scenes.splice(from,1); project.scenes.splice(to,0,scene); selected = id;
+  save(); render(); $('scene-list').querySelector('[aria-pressed="true"]').focus({preventScroll:true});
+}
+function mini() {
+  const s = active(); const image = project.images.find(i => i.id === s.bg);
+  $('mini-stage').style.backgroundImage = image ? `url("${image.data}")` : '';
+  $('mini-speaker').textContent = s.speaker || '旁白'; $('mini-text').textContent = s.text || '在這裡，寫下故事的第一句話。';
+}
+function kindUI() {
+  const s = active(); $('next-field').hidden = s.kind !== 'line'; $('choices').hidden = s.kind !== 'choice';
+  $('ending-hint').hidden = s.kind !== 'bad' && s.kind !== 'normal';
+  $('ending-hint').textContent = s.kind === 'bad' ? '這是一個 Bad End。玩家可返回最近一次選擇過的分支，或重新開始。' : '故事在此落幕。玩家可重新開始。';
+}
+function render() {
+  renderLibrary();
+  const s = active(); $('title').value = project.title; sceneOptions($('start')); $('start').value = project.start;
+  $('cover-enabled').checked = project.cover.enabled; $('cover-title').checked = project.cover.showTitle;
+  $('cover-bg').replaceChildren(option('', '預設 · 漸層背景'));
+  project.images.forEach(i => $('cover-bg').append(option(i.id, i.name))); $('cover-bg').value = project.cover.bg;
+  renderList();
+  $('move-up').disabled = project.scenes[0].id === selected;
+  $('move-down').disabled = project.scenes.at(-1).id === selected;
+  $('scene-number').textContent = 'SCENE ' + String(project.scenes.indexOf(s) + 1).padStart(2, '0');
+  for (const [field, key] of [['scene-label','label'], ['speaker','speaker'], ['text','text'], ['kind','kind']]) $(field).value = s[key];
+  $('background').replaceChildren(option('', '預設 · 微光漸層')); project.images.forEach(i => $('background').append(option(i.id, i.name))); $('background').value = s.bg;
+  sceneOptions($('next'), '依列表順序'); $('next').value = s.next;
+  for (let i = 0; i < 2; i++) { $('choice-' + i).value = s.choices[i]?.text || ''; sceneOptions($('target-' + i), '請指定目的段落'); $('target-' + i).value = s.choices[i]?.target || ''; }
+  renderAudio();
+  $('delete-scene').disabled = project.scenes.length === 1; kindUI(); mini(); renderAssets();
+}
+function audioOptions(el,emptyLabel) {
+  el.replaceChildren(option('',emptyLabel)); project.audio.forEach(a => el.append(option(a.id,a.name)));
+}
+function renderAudio() {
+  audioOptions($('default-music'),'無預設背景音'); $('default-music').value = project.music;
+  audioOptions($('scene-music'),'延續目前背景音'); $('scene-music').append(option('@stop','停止背景音')); $('scene-music').value = active().bgm || '';
+  audioOptions($('scene-sfx'),'無音效'); $('scene-sfx').value = active().sfx || '';
+  $('audio-assets').replaceChildren();
+  project.audio.forEach(a => {
+    const row = document.createElement('div'); row.className = 'audio-row';
+    const name = document.createElement('span'); name.textContent = a.name;
+    const play = document.createElement('button'); play.textContent = '試聽'; play.setAttribute('aria-label','試聽 '+a.name);
+    play.onclick = () => { stopAudioPreview(); previewAudio = new Audio(a.data); previewAudio.play().catch(() => { $('message').textContent = '無法播放音訊，請改用 MP3 或 WAV 格式。'; }); };
+    const stop = document.createElement('button'); stop.textContent = '停止'; stop.onclick = stopAudioPreview;
+    const remove = document.createElement('button'); remove.textContent = '刪除'; remove.setAttribute('aria-label','刪除音訊 '+a.name);
+    remove.onclick = () => {
+      if (!confirm('刪除此音訊？使用它的背景音或音效設定會清除。')) return;
+      stopAudioPreview(); project.audio = project.audio.filter(x => x.id !== a.id);
+      if (project.music === a.id) project.music = '';
+      project.scenes.forEach(s => { if (s.bgm === a.id) s.bgm = ''; if (s.sfx === a.id) s.sfx = ''; }); save(); render();
+    };
+    row.append(name,play,stop,remove); $('audio-assets').append(row);
+  });
+}
+function stopAudioPreview() { if (previewAudio) { previewAudio.pause(); previewAudio.removeAttribute('src'); previewAudio.load(); previewAudio = null; } }
+async function activateProject(id) {
+  if (!library.has(id)) return;
+  stopAudioPreview(); editVersion++; projectId = id; project = library.get(id); selected = project.start;
+  try { localStorage.setItem(ACTIVE,id); } catch {}
+  render(); $('save-status').textContent = storageMode === 'memory' ? '⚠ 無法永久儲存，請下載專案備份' : '● 專案已切換；修改後自動儲存';
+}
+$('project-select').onchange = async () => { const id = $('project-select').value; await persist(); await activateProject(id); };
+$('save-project').onclick = async () => { if (await persist()) $('message').textContent = '目前專案已儲存於此瀏覽器；請定期下載 JSON 備份。'; };
+$('new-project').onclick = async () => {
+  const title = prompt('新專案名稱','未命名故事'); if (title === null) return;
+  await persist(); const p = readProject(sample()); const id = uid(); const scene = p.scenes[0];
+  scene.id = uid(); scene.label = '第一幕'; scene.speaker = ''; scene.text = ''; scene.next = ''; p.scenes = [scene]; p.start = scene.id; p.title = title.trim().slice(0,100) || '未命名故事';
+  library.set(id,p); await activateProject(id); save();
+};
+$('duplicate-project').onclick = async () => {
+  await persist(); const id = uid(); const p = structuredClone(project); p.title = (p.title + '（副本）').slice(0,100);
+  library.set(id,p); await activateProject(id); save();
+};
+$('delete-project').onclick = async () => {
+  if (library.size <= 1 || !confirm('永久刪除目前專案？請先下載 JSON 備份。')) return;
+  await persist(); const id = projectId;
+  try {
+    if (storageMode === 'indexedDB') await transaction('readwrite',store => store.delete(id));
+    if (storageMode === 'localStorage') localStorage.setItem(LIBRARY,JSON.stringify([...library].filter(([key]) => key !== id).map(([key,p]) => ({id:key,project:p}))));
+    library.delete(id); await activateProject(library.keys().next().value);
+  } catch { $('message').textContent = '刪除失敗，專案仍保留，請先備份。'; }
+};
+$('move-up').onclick = () => moveScene(selected,-1);
+$('move-down').onclick = () => moveScene(selected,1);
+$('default-music').onchange = () => { project.music = $('default-music').value; save(); };
+$('scene-music').onchange = () => { active().bgm = $('scene-music').value; save(); };
+$('scene-sfx').onchange = () => { active().sfx = $('scene-sfx').value; save(); };
+function renderAssets() {
+  $('assets').replaceChildren();
+  if (!project.images.length) { const p = document.createElement('div'); p.className = 'empty-assets'; p.textContent = '讓一張照片，成為故事的起點。\n也可以先使用預設背景。'; $('assets').append(p); }
+  project.images.forEach(i => {
+    const row = document.createElement('div'); row.className = 'asset-row'; const img = document.createElement('img'); img.src = i.data; img.alt = i.name;
+    const name = document.createElement('span'); name.textContent = i.name; const del = document.createElement('button'); del.textContent = '✕'; del.setAttribute('aria-label', '刪除背景 ' + i.name);
+    del.onclick = () => { if (!confirm('刪除這張圖片？使用它的段落或封面將改用預設背景。')) return; project.images = project.images.filter(x => x.id !== i.id); if (project.cover.bg === i.id) project.cover.bg = ''; project.scenes.forEach(s => { if (s.bg === i.id) s.bg = ''; }); save(); render(); };
+    row.append(img, name, del); $('assets').append(row);
+  });
+}
+function updated() { save(); renderList(); mini(); }
+for (const [field, key] of [['scene-label','label'], ['speaker','speaker'], ['text','text'], ['background','bg'], ['next','next']]) {
+  $(field).addEventListener('input', () => { active()[key] = $(field).value; updated(); });
+}
+$('scene-label').addEventListener('input', () => {
+  for (const [id,empty] of [['start',null],['next','依列表順序'],['target-0','請指定目的段落'],['target-1','請指定目的段落']]) {
+    const value = $(id).value; sceneOptions($(id),empty); $(id).value = value;
+  }
+});
+$('title').oninput = () => { project.title = $('title').value; save(); };
+$('cover-enabled').onchange = () => { project.cover.enabled = $('cover-enabled').checked; save(); };
+$('cover-title').onchange = () => { project.cover.showTitle = $('cover-title').checked; save(); };
+$('cover-bg').onchange = () => { project.cover.bg = $('cover-bg').value; save(); };
+$('start').onchange = () => { project.start = $('start').value; save(); };
+$('kind').onchange = () => { const s = active(); s.kind = $('kind').value; if (s.kind === 'choice' && s.choices.length !== 2) s.choices = [{text:'',target:''},{text:'',target:''}]; save(); render(); };
+for (let i = 0; i < 2; i++) {
+  $('choice-' + i).oninput = () => { active().choices[i].text = $('choice-' + i).value; save(); };
+  $('target-' + i).onchange = () => { active().choices[i].target = $('target-' + i).value; save(); };
+}
+$('add-scene').onclick = () => {
+  if (project.scenes.length >= 2000) { $('message').textContent = '最多可加入 2000 個段落。'; return; }
+  const id = uid(); project.scenes.push({id, label: '新的段落', speaker:'',text:'',bg:active().bg,kind:'line',next:'',choices:[]}); selected = id; save(); render();
+};
+$('delete-scene').onclick = () => {
+  if (project.scenes.length === 1 || !confirm('刪除此段落？指向它的選項需重新指定目的地。')) return;
+  const index = project.scenes.findIndex(s => s.id === selected); project.scenes.splice(index, 1);
+  project.scenes.forEach(s => { if (s.next === selected) s.next = ''; s.choices.forEach(c => { if (c.target === selected) c.target = ''; }); });
+  if (project.start === selected) project.start = project.scenes[0].id;
+  selected = project.scenes[Math.min(index, project.scenes.length - 1)].id; save(); render();
+  $('message').textContent = '已刪除段落。請檢查接續順序與分支目的地。';
+};
+$('upload').onclick = () => $('image-file').click();
+$('upload-cover').onclick = () => $('cover-file').click();
+$('image-file').onchange = e => uploadImage(e, false);
+$('cover-file').onchange = e => uploadImage(e, true);
+async function uploadImage(e, isCover) {
+  const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+  const owner = project; const scene = active();
+  try {
+    if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) throw Error('請選擇 5 MiB 以下的 JPG、PNG 或 WebP 圖片。');
+    if (project.images.length >= 200) throw Error('最多可加入 200 張背景。');
+    const data = await new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result); r.onerror = reject; r.readAsDataURL(file); });
+    await new Promise((resolve, reject) => { const img = new Image(); img.onload = resolve; img.onerror = () => reject(Error('圖片無法解碼，請換一張圖片。')); img.src = data; });
+    if (owner !== project) throw Error('已切換專案，圖片未加入；請在目前專案重新選擇。');
+    const id = uid(); project.images.push({ id, name: file.name.slice(0,255), data });
+    if (isCover) { project.cover.bg = id; project.cover.enabled = true; } else if (project.scenes.includes(scene)) scene.bg = id;
+    save(); render(); $('message').textContent = '已新增圖片；建議下載專案備份，避免圖片超過本機儲存配額。';
+  } catch (error) { $('message').textContent = error.message || '讀取圖片失敗。'; }
+}
+$('upload-audio').onclick = () => $('audio-file').click();
+$('audio-file').onchange = async e => {
+  const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+  const owner = project;
+  try {
+    const ext = file.name.split('.').pop().toLowerCase();
+    const mime = {mp3:'audio/mpeg',wav:'audio/wav',m4a:'audio/mp4',ogg:'audio/ogg'}[ext];
+    if (!mime || file.size > 10 * 1024 * 1024) throw Error('請選擇 10 MiB 以下的 MP3、WAV、M4A 或 OGG 音訊。');
+    if (project.audio.length >= 100) throw Error('最多可加入 100 個音訊素材。');
+    const data = await new Promise((resolve,reject) => {
+      const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = reject;
+      reader.readAsDataURL(new Blob([file],{type:mime}));
+    });
+    await new Promise((resolve,reject) => {
+      const probe = new Audio(); const timer = setTimeout(() => finish(Error('音訊讀取逾時，請改用 MP3 或 WAV。')),10000);
+      function finish(error) { clearTimeout(timer); probe.onloadedmetadata = probe.onerror = null; probe.removeAttribute('src'); probe.load(); error ? reject(error) : resolve(); }
+      probe.onloadedmetadata = () => finish(); probe.onerror = () => finish(Error('無法解碼此音訊，請改用 MP3 或 WAV。')); probe.preload = 'metadata'; probe.src = data;
+    });
+    if (owner !== project) throw Error('已切換專案，音訊未加入；請在目前專案重新選擇。');
+    project.audio.push({id:uid(),name:file.name.slice(0,255),data}); save(); renderAudio();
+    $('message').textContent = '已加入音訊。請在全劇或段落的下拉選單指定用途，並下載 JSON 備份。';
+  } catch (error) { $('message').textContent = error.message || '音訊讀取失敗。'; }
+};
+function download(data, filename, type) {
+  const url = URL.createObjectURL(new Blob([data], {type})); const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+$('backup').onclick = () => { download(JSON.stringify(project, null, 2), (project.title.replace(/[\\/:*?"<>|]/g,'_') || 'novel') + '-project.json', 'application/json'); $('message').textContent = '已下載目前專案的 JSON 備份（含圖片與音訊）。請勿將備份上傳到玩家網站。'; };
+$('import').onclick = () => $('project-file').click();
+$('project-file').onchange = async e => {
+  const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+  try {
+    if (file.size > 100 * 1024 * 1024) throw Error('專案檔超過 100 MiB，請先減少圖片大小。');
+    const incoming = readProject(JSON.parse(await file.text()));
+    await persist(); const id = uid(); library.set(id,incoming); await activateProject(id); save();
+    $('message').textContent = '已匯入為新專案，原本的專案仍保留在「我的專案」。';
+  } catch (error) { $('message').textContent = '匯入失敗：' + error.message; }
+};
+// Compile reachable scenes into a compact player-only format, stripping editor metadata.
+function compile() {
+  const p = readProject(project);
+  if (!p.title.trim()) throw Error('請填寫故事名稱。');
+  const byId = new Map(p.scenes.map((s, i) => [s.id, { ...s, order: i }]));
+  const visited = new Map(); const ordered = [];
+  const queue = [p.start];
+  while (queue.length) {
+    const id = queue.shift(); if (visited.has(id)) continue;
+    const s = byId.get(id); if (!s) throw Error('有目的段落不存在。');
+    visited.set(id, ordered.length); ordered.push(s);
+    if (s.kind === 'choice') {
+      s.choices.forEach(c => { if (!c.text.trim() || !c.target) throw Error(`「${s.label}」的兩個選項皆需填寫文字及目的段落。`); queue.push(c.target); });
+    } else if (s.kind === 'line') { const next = s.next || p.scenes[s.order + 1]?.id; if (next) queue.push(next); }
+  }
+  const images = []; const imageIndex = new Map();
+  function useImage(id) {
+    if (!id) return null;
+    if (!imageIndex.has(id)) { imageIndex.set(id, images.length); images.push(p.images.find(i => i.id === id).data); }
+    return imageIndex.get(id);
+  }
+  const cover = p.cover.enabled ? {bg:useImage(p.cover.bg), showTitle:p.cover.showTitle} : null;
+  const audio = []; const audioIndex = new Map();
+  function useAudio(id) {
+    if (!id) return null;
+    if (!audioIndex.has(id)) { audioIndex.set(id,audio.length); audio.push(p.audio.find(a => a.id === id).data); }
+    return audioIndex.get(id);
+  }
+  const music = useAudio(p.music);
+  const scenes = ordered.map(s => {
+    const bg = useImage(s.bg);
+    const base = { speaker:s.speaker, text:s.text, bg, bgm:s.bgm === '@stop' ? -1 : useAudio(s.bgm), sfx:useAudio(s.sfx) };
+    if (s.kind === 'normal' || s.kind === 'bad') return {...base, end:s.kind};
+    if (s.kind === 'choice') return {...base, choices:s.choices.map(c => ({text:c.text,to:visited.get(c.target)}))};
+    const next = s.next || p.scenes[s.order + 1]?.id;
+    return {...base, next:next ? visited.get(next) : null};
+  });
+  return {title:p.title, cover, images, audio, music, scenes};
+}
+async function gameHTML() {
+  await cssReady;
+  if (!playerCSS) throw Error('玩家樣式尚未載入，請以本機伺服器重新開啟編輯器。');
+  const data = JSON.stringify(compile()).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+  // Only serialize the standalone player function; no editor source is embedded.
+  return '<!doctype html>\n<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>視覺小說</title><style>' + playerCSS + '</style></head><body><main id="game"></main><script>const story=' + data + ';document.title=story.title;(' + window.mountNovel.toString() + ')(document.getElementById("game"),story);<\/script></body></html>';
+}
+$('export').onclick = async () => { try { download(await gameHTML(), 'index.html', 'text/html'); $('message').textContent = '已匯出玩家專用 index.html。請只將此檔案上傳到獨立的 GitHub Pages 玩家儲存庫。'; } catch (e) { $('message').textContent = '無法匯出：' + e.message; } };
+function resetPreviewFrame() {
+  // Dispose of the old document immediately so a rapid reopen cannot show or
+  // accept clicks in the previous game while the new srcdoc is loading.
+  const old = $('preview-frame'); const fresh = old.cloneNode(false);
+  fresh.removeAttribute('srcdoc'); old.replaceWith(fresh); return fresh;
+}
+$('preview').onclick = async () => { try { stopAudioPreview(); const html = await gameHTML(); resetPreviewFrame().srcdoc = html; $('preview-dialog').showModal(); } catch (e) { $('message').textContent = '無法預覽：' + e.message; } };
+function closePreview() { resetPreviewFrame(); $('preview-dialog').close(); }
+$('close-preview').onclick = closePreview;
+$('preview-dialog').addEventListener('cancel', resetPreviewFrame);
+let changingProject = false;
+for (const [id,event] of [['project-select','onchange'],['new-project','onclick'],['duplicate-project','onclick'],['delete-project','onclick'],['project-file','onchange']]) {
+  const action = $(id)[event];
+  $(id)[event] = async e => {
+    if (changingProject) return;
+    changingProject = true; document.querySelector('main').inert = true; document.querySelector('nav').inert = true;
+    try { await action(e); }
+    finally { changingProject = false; document.querySelector('main').inert = false; document.querySelector('nav').inert = false; }
+  };
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden && saveTimer) persist(); });
+initialize();
+</script></body></html>
